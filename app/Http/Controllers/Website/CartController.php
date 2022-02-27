@@ -18,15 +18,14 @@ class CartController extends Controller
         $product        = Product::find($id);
 
         $cart_code = $this->get_cartCode();
-        $carts = $this->getCarts();
-        foreach($carts as $cart){
-            if($cart->product_id == $id){
-                $cart = Cart::where("code",$cart_code)->where("product_id",$cart->product_id)->first();
-                $cart->quantity = $cart->quantity + 1;
-                $cart->save();
-                return redirect()->back()->with('success','Add to cart successfully!');
-            }
-        }
+
+        $cart = Cart::where("code",$cart_code)->where("product_id",$id)->first();
+        if( $cart ){
+            $cart->quantity = $cart->quantity + 1;
+            $cart->save();
+            return redirect()->back()->with('success','Add to cart successfully!');
+        } 
+        
       
         $cart = new Cart();
         $cart->price        = $product->price;
