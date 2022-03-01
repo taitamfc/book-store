@@ -21,74 +21,83 @@
 <section class="cart_area section-padding">
     <div class="container">
         <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($carts as $cart):?>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="{{ asset('website/assets/img/gallery/xbest-books1.jpg.pagespeed.ic.a3LkFxg89O.webp')}}"
-                                            alt="" data-pagespeed-url-hash="4146589661"
-                                            onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>{{ number_format($cart->price) }}</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                                    <input class="input-number" type="text" value="{{ $cart->quantity }}" min="0" max="10">
-                                    <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>$720.00</h5>
-                            </td>
-                        </tr>
-                        <?php endforeach;?>
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="btn" href="#">Update Cart</a>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <h5>Subtotal</h5>
-                            </td>
-                            <td>
-                                <h5>$2160.00</h5>
-                            </td>
-                        </tr>
-        
-                    </tbody>
-                </table>
-                <div class="checkout_btn_inner float-right">
-                    <a class="btn" href="{{ route('website.shop') }}">Continue Shopping</a>
-                    <a class="btn checkout_btn" href="{{ route('website.checkout') }}">Proceed to checkout</a>
-                </div>
+            @if(Session::has('success'))
+            <div class="alert alert-success mt-10" role="alert">
+                {{ Session::get('success')}} 
             </div>
+            @endif
+            <form action="{{ route('website.cart-update') }}" method="POST">
+                @csrf
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $total = 0;
+                            foreach($carts as $key => $cart):
+                            $total += $cart->price;
+                            ?>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="{{ $cart->product->image }}">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>{{ $cart->product->title }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{ number_format($cart->price) }}</h5>
+                                </td>
+                                <td>
+                                <input class="input-number form-control" name="qtys[{{$cart->product_id}}]" style="width:100px" type="number" value="{{ $cart->quantity }}" min="0" max="10">
+                                </td>
+                                <td>
+                                    <h5>{{ number_format($cart->price * $cart->quantity) }}</h5>
+                                </td>
+                                <td>
+                                    <a href="{{ route('website.cart-delete',$cart->product_id) }}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                            <tr class="bottom_button">
+                                <td>
+                                    <input type="submit" class="btn" value="Update Cart">
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>{{ number_format($total) }}</h5>
+                                </td>
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                    <div class="checkout_btn_inner float-right">
+                        <a class="btn" href="{{ route('website.shop') }}">Continue Shopping</a>
+                        <a class="btn checkout_btn" href="{{ route('website.checkout') }}">Proceed to checkout</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>

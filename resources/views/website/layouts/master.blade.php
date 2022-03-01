@@ -10,7 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/xfavicon.png.pagespeed.ic.OYy94fDeJN.webp">
 
     <link rel="stylesheet" href="{{ asset('website/assets/css/all1.css') }}" />
-    <link rel="stylesheet" href="{{ asset('website/assets/css/all2.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('website/assets/css/all2.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('website/assets/css/style.css') }}">
 
 </head>

@@ -5081,3 +5081,12 @@ del {
   .alert-link {
     font-weight: 700;
   }
+  .submenu .submenu {
+    right: -174px !important;
+    left: unset !important;
+    top: 0px !important;
+  }
+  .submenu {
+    border-radius:unset !important;
+    padding: 0px !important;
+  }

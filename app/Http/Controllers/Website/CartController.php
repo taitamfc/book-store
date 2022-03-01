@@ -14,7 +14,12 @@ class CartController extends Controller
         $carts = $this->getCarts();
         return view('website.cart',compact('carts'));
     }
-    public function add(Request $request, $id){
+    public function delete($id){
+        $cart_code = $this->get_cartCode();
+        $cart = Cart::where("code",$cart_code)->where("product_id",$id)->delete();
+        return redirect()->back()->with('success','Remove item from cart successfully!');
+    }
+    public function add($id){
         $product        = Product::find($id);
 
         $cart_code = $this->get_cartCode();
@@ -35,5 +40,13 @@ class CartController extends Controller
         $cart->save();
         
         return redirect()->back()->with('success','Add to cart successfully!');
+    }
+
+    public function update(Request $request){
+        $cart_code = $this->get_cartCode();
+        foreach( $request->qtys as $product_id => $qty ){
+            $cart = Cart::where("code",$cart_code)->where("product_id",$product_id)->update(['quantity'=>$qty]);
+        }
+        return redirect()->back()->with('success','Update cart successfully!');
     }
 }

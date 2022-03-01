@@ -288,9 +288,15 @@
       }
     }
   })();
-  inputNumber($('.input-number'));
-  inputNumber($('.input-number2'));
-
+  
+ 
+  jQuery('.input-number-decrement').on('click',function(){
+    alert(123);
+    var input = jQuery(this).closest('.product_count').find('.input-number');
+    var input_val = input.val();
+    console.log(input_val);
+    input.attr( 'value',parseInt(input_val) + 1 );
+  });
 
 
 })(jQuery);
