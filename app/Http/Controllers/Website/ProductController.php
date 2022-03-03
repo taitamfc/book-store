@@ -14,13 +14,13 @@ class ProductController extends Controller
         $params = [
             'products' => $products
         ];
-        return view('website.shop',$params);
+        return view('frontend.shop',$params);
     }
     public function show($slug){
         $product = Product::where('status',1)->where('slug',$slug)->first();
         $params = [
             'product' => $product
         ];
-        return view('website.product',$params);
+        return view('frontend.product',$params);
     }
 }

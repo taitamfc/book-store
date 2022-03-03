@@ -10,12 +10,16 @@ class HomeController extends Controller
 {
     public function index(){
 
-        $lastest_products = Product::where('status',1)->limit(10)->get();
+        $featured_products  = Product::where('status',1)->orderBy('id','ASC')->limit(8)->get();
+        $lastest_products   = Product::where('status',1)->orderBy('id','DESC')->limit(8)->get();
+        $most_view_products = Product::where('status',1)->orderBy('id','ASC')->limit(8)->get();
 
         $params = [
-            'lastest_products' => $lastest_products
+            'featured_products'     => $featured_products,
+            'lastest_products'      => $lastest_products,
+            'most_view_products'    => $most_view_products,
         ];
 
-        return view('website.home',$params);
+        return view('frontend.home',$params);
     }
 }

@@ -7,9 +7,9 @@
     <title>Pustok - Book Store HTML Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Use Minified Plugins Version For Fast Page Load -->
-    <link rel="stylesheet" type="text/css" media="screen" href="frontend/css/plugins.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="frontend/css/main.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('frontend/css/plugins.css') }}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('frontend/css/main.css') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/image/favicon.ico') }}">
 </head>
 
 <body>
@@ -22,30 +22,9 @@
         @include('frontend.includes.theme.site-mobile-menu')
         @include('frontend.includes.theme.fixed-header')
 
-        <!--=================================
-        Hero Area
-        ===================================== -->
-        @include('frontend.includes.home.hero-area')
+        @yield('content')
+
         
-        <!--=================================
-        Home Features Section
-        ===================================== -->
-        @include('frontend.includes.home.home-features')
-        
-        <!--=================================
-        Home Category Gallery
-        ===================================== -->
-        @include('frontend.includes.home.home-category')
-        
-        <!--=================================
-        Home Two Column Section
-        ===================================== -->
-        @include('frontend.includes.home.home-promotion')
-        
-    
-        <!--=================================
-        Footer
-        ===================================== -->
     </div>
 
     <!--=================================
@@ -59,9 +38,9 @@
     @include('frontend.includes.theme.site-footer')
     
     <!-- Use Minified Plugins Version For Fast Page Load -->
-    <script src="frontend/js/plugins.js"></script>
-    <script src="frontend/js/ajax-mail.js"></script>
-    <script src="frontend/js/custom.js"></script>
+    <script src="{{ asset('frontend/js/plugins.js')}}"></script>
+    <script src="{{ asset('frontend/js/ajax-mail.js')}}"></script>
+    <script src="{{ asset('frontend/js/custom.js')}}"></script>
 </body>
 
 </html>

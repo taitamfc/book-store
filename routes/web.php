@@ -28,11 +28,11 @@ Route::group(['prefix' => 'admin'], function()
     Route::resource('categories',CategoryController::class);
 });
 
-Route::get('/', function(){
-    return view('frontend.layouts.master');
-})->name('website.home');
+// Route::get('/', function(){
+//     return view('frontend.layouts.master');
+// })->name('website.home');
 
-//Route::get('/', [HomeController::class,'index'])->name('website.home');
+Route::get('/', [HomeController::class,'index'])->name('website.home');
 Route::get('/shop', [WebsiteProductController::class,'index'])->name('website.shop');
 Route::get('/category/{id}', [WebsiteCategoryController::class,'show'])->name('website.category');
 Route::get('/product/{slug}', [WebsiteProductController::class,'show'])->name('website.product');

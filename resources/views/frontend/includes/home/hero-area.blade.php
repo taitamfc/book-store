@@ -8,6 +8,7 @@
                                                                     "slidesToShow": 1,
                                                                     "dots":true
                                                                     }'>
+                    <!-- Start loop  -->
                     <div class="single-slide bg-image bg-overlay--white"
                         data-bg="frontend/image/bg-images/home-4-slider-1.jpg">
                         <div class="home-content text-left pl--30">
@@ -25,21 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="single-slide bg-image bg-overlay--dark"
-                        data-bg="frontend/image/bg-images/home-4-slider-2.jpg">
-                        <div class="home-content text-center">
-                            <div class="row justify-content-end">
-                                <div class="col-lg-8">
-                                    <h1 class="v2">I Love This Idea!</h1>
-                                    <h2>Cover up front of book and
-                                        leave summary</h2>
-                                    <a href="shop-grid.html" class="btn btn--yellow">
-                                        Shop Now
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- End loop  -->
                 </div>
             </div>
         </div>
