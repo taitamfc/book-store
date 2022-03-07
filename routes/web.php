@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin'], function()
 
 Route::get('/', [HomeController::class,'index'])->name('website.home');
 Route::get('/shop', [WebsiteProductController::class,'index'])->name('website.shop');
-Route::get('/category/{id}', [WebsiteCategoryController::class,'show'])->name('website.category');
+Route::get('/category/{slug}', [WebsiteCategoryController::class,'show'])->name('website.category');
 Route::get('/product/{slug}', [WebsiteProductController::class,'show'])->name('website.product');
 Route::get('/cart', [CartController::class,'index'])->name('website.cart');
 Route::get('/cart-add/{id}', [CartController::class,'add'])->name('website.cart-add');
@@ -42,4 +42,10 @@ Route::get('/cart-delete/{id}', [CartController::class,'delete'])->name('website
 Route::post('/cart-update', [CartController::class,'update'])->name('website.cart-update');
 Route::get('/checkout', [CheckoutController::class,'index'])->name('website.checkout');
 Route::post('/do-checkout', [CheckoutController::class,'doCheckout'])->name('website.do-checkout');
-Route::get('/success/{?id}', [CheckoutController::class,'success'])->name('website.success');
+Route::get('/success/{id?}', [CheckoutController::class,'success'])->name('website.success');
+
+Route::get('/login', [UserController::class,'login'])->name('website.login');
+Route::get('/register', [UserController::class,'register'])->name('website.register');
+
+Route::post('/postLogin', [UserController::class,'postLogin'])->name('website.postLogin');
+Route::post('/postRegister', [UserController::class,'postRegister'])->name('website.postRegister');

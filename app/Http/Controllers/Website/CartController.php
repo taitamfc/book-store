@@ -12,21 +12,22 @@ class CartController extends Controller
 {
     public function index(){
         $carts = $this->getCarts();
-        return view('website.cart',compact('carts'));
+        return view('frontend.cart',compact('carts'));
     }
     public function delete($id){
         $cart_code = $this->get_cartCode();
         $cart = Cart::where("code",$cart_code)->where("product_id",$id)->delete();
         return redirect()->back()->with('success','Remove item from cart successfully!');
     }
-    public function add($id){
+    public function add(Request $request, $id){
         $product        = Product::find($id);
 
         $cart_code = $this->get_cartCode();
+        $qty = ($request->qty) ? $request->qty : 1;
 
         $cart = Cart::where("code",$cart_code)->where("product_id",$id)->first();
         if( $cart ){
-            $cart->quantity = $cart->quantity + 1;
+            $cart->quantity = $cart->quantity + $qty;
             $cart->save();
             return redirect()->back()->with('success','Add to cart successfully!');
         } 

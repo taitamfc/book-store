@@ -11,4 +11,8 @@ class Category extends Model
 
     public $fillable    = ['title','slug','banner','parent_id','status'];
     public $timestamps  = false;
+
+    public function sub_cats(){
+        return $this->hasMany( self::class,'parent_id','id' );
+    }
 }

@@ -1,16 +1,30 @@
 <?php
+ 
+namespace App\View\Composers;
+ 
+use Illuminate\View\View;
 
-namespace App\Http\Controllers;
-
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
 use App\Models\Cart;
-
-class Controller extends BaseController
+ 
+class CartComposer
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    /**
+     * The user repository implementation.
+     *
+     * @var \App\Repositories\UserRepository
+     */
+    protected $carts;
+ 
+    /**
+     * Create a new profile composer.
+     *
+     * @param  \App\Repositories\UserRepository  $users
+     * @return void
+     */
+    // public function __construct()
+    // {
+        
+    // }
 
     public function get_cartCode(){
         if (session()->has('cart_code')) {
@@ -37,5 +51,17 @@ class Controller extends BaseController
         ];
 
         return $carts;
+    }
+ 
+    /**
+     * Bind data to the view.
+     *
+     * @param  \Illuminate\View\View  $view
+     * @return void
+     */
+    public function compose(View $view)
+    {
+        $carts = $this->getCarts();
+        $view->with('carts', $carts);
     }
 }

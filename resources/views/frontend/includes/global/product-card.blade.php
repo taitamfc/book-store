@@ -1,9 +1,9 @@
 <div class="product-card">
     <div class="product-header">
-        <a href="" class="author">
+        <!-- <a href="" class="author">
             Apple
-        </a>
-        <h3><a href="{{ route('website.product',$product->slug) }}">{{ $product->name }}</a></h3>
+        </a> -->
+        <h3><a href="{{ route('website.product',$product->slug) }}">{{ $product->title }}</a></h3>
     </div>
     <div class="product-card--body">
         <div class="card-image">

@@ -55,6 +55,8 @@
     <script src="{{ asset('website/assets/js/jquery.ajaxchimp.min.js') }}"> </script>
     <script src="{{ asset('website/assets/js/plugins.js') }}"> </script>
     <script src="{{ asset('website/assets/js/main.js') }}"> </script>
+
+    @yield('footer_scripts')
 </body>
 
 </html>

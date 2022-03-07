@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
+
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -18,6 +20,7 @@ class HomeController extends Controller
             'featured_products'     => $featured_products,
             'lastest_products'      => $lastest_products,
             'most_view_products'    => $most_view_products,
+            'currentRouteName'      => Route::currentRouteName()
         ];
 
         return view('frontend.home',$params);
