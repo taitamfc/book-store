@@ -7,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Categories</h1>
+                <h1>Products</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Categories</li>
+                    <li class="breadcrumb-item active">Products</li>
                 </ol>
             </div>
         </div>
@@ -25,10 +25,10 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Categories Add</h3>
+            <h3 class="card-title">Product Add</h3>
 
             <div class="card-tools">
-                <a href="{{ route('categories.index') }}" class="btn btn-primary">
+                <a href="{{ route('products.index') }}" class="btn btn-primary">
                     Back to list <i class="fas fa-table"></i>
                 </a>
             </div>
@@ -44,12 +44,27 @@
                 @endforeach
                 </ul>
             @endif
-            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="banner">Price</label>
+                            <input type="text" name="price" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="banner">Stock</label>
+                            <input type="number" name="stock" class="form-control">
+                        </div>
+                    </div>
+                </div>
+               
                 
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -59,17 +74,19 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="parent_id">Parent Category</label>
-                    <select name="parent_id" class="form-control custom-select">
-                        <option value="0">No Parent</option>
-                        @foreach( $cat_parents as $cat_parent )
-                        <option value="{{ $cat_parent->id }}">{{ $cat_parent->title }}</option>
+                    <label for="parent_id">Category</label>
+                    <select name="category_id" id="" class="form-control">
+                        @foreach( $cat_parents as $category )
+                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @foreach( $category->sub_cats as $category )
+                            <option value="{{ $category->id }}">|_ {{ $category->title }}</option>
+                            @endforeach
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="banner">Banner</label>
-                    <input type="file" name="banner" class="form-control">
+                    <label for="banner">Image</label>
+                    <input type="file" name="image" class="form-control">
                 </div>
                
                 <div class="form-group">

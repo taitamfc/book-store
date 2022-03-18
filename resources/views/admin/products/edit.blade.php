@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.master')
 
 @section('content')
@@ -8,12 +7,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Categories</h1>
+                <h1>Products</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Categories</li>
+                    <li class="breadcrumb-item active">Products</li>
                 </ol>
             </div>
         </div>
@@ -26,10 +25,10 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Categories Add</h3>
+            <h3 class="card-title">Product Add</h3>
 
             <div class="card-tools">
-                <a href="{{ route('categories.index') }}" class="btn btn-primary">
+                <a href="{{ route('products.index') }}" class="btn btn-primary">
                     Back to list <i class="fas fa-table"></i>
                 </a>
             </div>
@@ -45,18 +44,32 @@
                 @endforeach
                 </ul>
             @endif
-            <form action="{{ route('categories.update',$item->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('products.update',$item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" name="title" class="form-control" value="{{ $item->title }}">
                 </div>
-
                 <div class="form-group">
                     <label>Slug</label>
-                    <input disabled type="text" name="slug" class="form-control" value="{{ $item->slug }}">
+                    <input type="text" disabled name="slug" class="form-control" value="{{ $item->slug }}">
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="banner">Price</label>
+                            <input type="text" name="price" class="form-control" value="{{ $item->price }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="banner">Stock</label>
+                            <input type="number" name="stock" class="form-control" value="{{ $item->stock }}">
+                        </div>
+                    </div>
+                </div>
+               
                 
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -66,24 +79,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="parent_id">Parent Category</label>
-                    <select name="parent_id" class="form-control custom-select">
-                        <option value="0">No Parent</option>
-                        @foreach( $cat_parents as $cat_parent )
-                        <option {{ ($cat_parent->id == $item->parent_id) ? 'selected' : '' }} value="{{ $cat_parent->id }}">{{ $cat_parent->title }}</option>
+                    <label for="parent_id">Category</label>
+                    <select name="category_id" id="" class="form-control">
+                        @foreach( $cat_parents as $category )
+                        <option {{ ($category->id == $item->category_id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
+                            @foreach( $category->sub_cats as $category )
+                            <option {{ ($category->id == $item->category_id) ? 'selected' : '' }} value="{{ $category->id }}">|_ {{ $category->title }}</option>
+                            @endforeach
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="banner">Banner</label>
-                    <input type="file" name="banner" class="form-control">
+                    <label for="banner">Image</label>
+                    <input type="file" name="image" class="form-control">
                 </div>
-                @if($item->banner)
+                @if($item->image)
                 <div class="form-group">
-                     <img style="width:350px" src="{{ $item->banner}}">   
+                     <img style="width:250px" src="{{ $item->image}}">   
                 </div>
                 @endif
-
+               
+                <div class="form-group">
+                    <label for="inputDescription">Description</label>
+                    <textarea name="description" class="form-control" rows="4">{{ $item->description }}</textarea>
+                </div>
                 <div class="form-group">
                     
                     <input type="submit" id="inputProjectLeader" class="btn btn-primary" value="Save">

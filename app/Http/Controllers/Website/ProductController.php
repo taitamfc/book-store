@@ -13,33 +13,33 @@ class ProductController extends Controller
         $q = $request->q;
         $order_by = $request->order_by;
 
-        $products = Product::where('status',1);
+        $query = Product::query(true);
 
         if( $q ){
-            $products = $products->where('title','LIKE','%'.$q.'%');
+            $query->where('title','LIKE','%'.$q.'%');
         }
 
         if( $order_by ){
             switch ($order_by) {
                 case 'name_desc':
-                    $products = $products->orderBy('title','DESC');
+                    $query->orderBy('title','DESC');
                     break;
                 case 'name_asc':
-                    $products = $products->orderBy('title','ASC');
+                    $query->orderBy('title','ASC');
                     break;
                 case 'price_desc':
-                    $products = $products->orderBy('price','DESC');
+                    $query->orderBy('price','DESC');
                     break;
                 case 'price_asc':
-                    $products = $products->orderBy('price','ASC');
+                    $query->orderBy('price','ASC');
                     break;
                 default:
-                    # code...
+                    $query->orderBy('id','DESC');
                     break;
             }
         }
 
-        $products = $products->paginate(12);
+        $products = $query->paginate(12);
 
         $params = [
             'products' => $products

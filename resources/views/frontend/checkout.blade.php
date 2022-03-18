@@ -12,6 +12,13 @@
                     @csrf
                     <div class="row row-40">
                         <div class="col-lg-7 mb--20">
+                            @if( count($errors->all()) )
+                                <ul class="alert alert-danger">
+                                @foreach ($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                                </ul>
+                            @endif
                             <!-- Billing Address -->
                             <div id="billing-form" class="mb-40">
                                 <h4 class="checkout-title">Billing Address</h4>

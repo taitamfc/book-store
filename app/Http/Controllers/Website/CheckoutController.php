@@ -20,6 +20,14 @@ class CheckoutController extends Controller
         ]);
     }
     public function doCheckout(Request $request){
+
+        $request->validate([
+            'first_name'    => 'required|min:2',
+            'last_name'     => 'required|min:2',
+            'email'         => 'required|email',
+            'phone'         => 'required',
+            'address'       => 'required|min:2',
+        ]);
  
         $order = new Order();
         $order->first_name  = $request->first_name;
